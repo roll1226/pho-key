@@ -19,5 +19,6 @@ RUN python -m pip install jupyterlab
 RUN pip install ImageHash
 RUN pip install firebase-admin
 RUN pip install google-cloud-firestore
+RUN pip install google-cloud-storage
 RUN pip install flask
 RUN pip install functions-framework

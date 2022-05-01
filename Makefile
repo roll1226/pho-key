@@ -5,8 +5,8 @@ build:
 down:
 	cd api && docker compose down
 restart:
-	@make up-api
-	@make down-api
+	@make down
+	@make up
 api-bash:
 	cd api && docker compose exec api bash
 ps:
