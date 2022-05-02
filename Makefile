@@ -17,3 +17,5 @@ api-create-keyhole:
 	cd api && docker compose exec api functions_framework --target=create_keyhole
 api-create-challenge:
 	cd api && docker compose exec api functions_framework --target=create_challenge
+generate-immutable:
+	cd phokey && flutter packages pub run build_runner watch --delete-conflicting-outputs

@@ -110,7 +110,6 @@ def create_keyhole(request):
     keyholes_ref.add({
       'body': body,
       'imagePath': image_path,
-      'creatorId': 2,
       'delFlag': False,
       'createdAt': now,
       'updatedAt': now,
