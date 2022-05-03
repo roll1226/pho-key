@@ -1,7 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 class ListCard extends StatelessWidget {
   const ListCard({Key? key, this.imagePath, this.keyholeId, this.onPressed})
@@ -28,13 +25,13 @@ class ListCard extends StatelessWidget {
             Container(
                 margin: EdgeInsets.all(10.0),
                 child: ButtonBar(
-                  alignment: MainAxisAlignment.start,
+                  alignment: MainAxisAlignment.center,
                   children: [
-                    IconButton(
+                    TextButton.icon(
                       onPressed: onPressed,
                       icon: const Icon(Icons.key),
-                    ),
-                    const Text('解錠')
+                      label: const Text('解錠'),
+                    )
                   ],
                 )),
           ],

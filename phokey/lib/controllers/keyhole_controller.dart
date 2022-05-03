@@ -1,8 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:phokey/models/keyhole/keyhole_model.dart';
-
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:phokey/models/keyhole/keyhole_model.dart';
 import 'package:phokey/repositories/custom_exception.dart';
 import 'package:phokey/repositories/keyhole/keyhole_repository.dart';
 
@@ -16,16 +13,17 @@ final keyholeControllerProvider =
 class KeyholeController extends StateNotifier<AsyncValue<List<Keyhole>>> {
   final Reader _read;
 
-  KeyholeController(this._read) : super(AsyncValue.loading()) {
+  KeyholeController(this._read) : super(const AsyncValue.loading()) {
     retrieveKeyholes();
   }
 
   Future<void> retrieveKeyholes({bool isRefreshing = false}) async {
-    if (isRefreshing) state = AsyncValue.loading();
+    if (isRefreshing) state = const AsyncValue.loading();
     try {
-      final items = await _read(keyholeRepositoryProvider).retrieveKeyholes();
+      final keyholes =
+          await _read(keyholeRepositoryProvider).retrieveKeyholes();
       if (mounted) {
-        state = AsyncValue.data(items);
+        state = AsyncValue.data(keyholes);
       }
     } on CustomException catch (e) {
       state = AsyncValue.error(e);
