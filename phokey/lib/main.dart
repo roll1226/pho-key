@@ -1,18 +1,28 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:phokey/controllers/keyhole_controller.dart';
+import 'package:phokey/models/keyhole/keyhole_model.dart';
 import 'package:phokey/view/detail_page.dart';
+import 'package:phokey/view/widgets/create_dialog.dart';
 import 'package:phokey/view/widgets/list_card.dart';
 import 'package:phokey/repositories/custom_exception.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  final cameras = await availableCameras();
+  final firstCamera = cameras.first;
+
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(ProviderScope(child: HomeApp()));
+  runApp(ProviderScope(child: HomeApp(camera: firstCamera)));
 }
 
 class HomeApp extends StatelessWidget {
+  const HomeApp({Key? key, required this.camera}) : super(key: key);
+  final CameraDescription camera;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -23,13 +33,17 @@ class HomeApp extends StatelessWidget {
       ),
 
       // リストの表示
-      home: const Screen(),
+      home: Screen(camera: camera),
     );
   }
 }
 
 class Screen extends HookConsumerWidget {
-  const Screen({Key? key}) : super(key: key);
+  const Screen({
+    Key? key,
+    required this.camera,
+  }) : super(key: key);
+  final CameraDescription camera;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -41,18 +55,11 @@ class Screen extends HookConsumerWidget {
         padding: EdgeInsets.all(10),
         child: KeyholeList(),
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () async {
-      //     Navigator.of(context).push(
-      //       MaterialPageRoute(builder: (context) {
-      //         return const DetailPageScreen(
-      //           keyholeId: 'asd',
-      //         );
-      //       }),
-      //     );
-      //   },
-      //   child: const Icon(Icons.add),
-      // ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () =>
+            AddKeyholeDialog.show(context, Keyhole.empty(), camera),
+        child: const Icon(Icons.add),
+      ),
     );
   }
 }

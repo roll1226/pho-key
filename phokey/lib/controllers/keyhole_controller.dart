@@ -29,4 +29,18 @@ class KeyholeController extends StateNotifier<AsyncValue<List<Keyhole>>> {
       state = AsyncValue.error(e);
     }
   }
+
+  Future<void> addKeyhole(
+      {required String imagePath, required String body}) async {
+    try {
+      final keyhole = await _read(keyholeRepositoryProvider)
+          .createKeyhole(imagePath: imagePath, body: body);
+
+      state.whenData((keyholes) => state =
+          AsyncValue.data(keyholes..add(keyhole.copyWith(id: keyhole.id))));
+    } on CustomException {
+      // I can't imitate origin code.
+      _read(keyholeExceptionProvider);
+    }
+  }
 }
