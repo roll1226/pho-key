@@ -36,7 +36,7 @@ class DetailCard extends StatelessWidget {
                         TextButton.icon(
                           onPressed: onPressed,
                           icon: const Icon(Icons.camera),
-                          label: const Text('撮影'),
+                          label: const Text('鍵生成'),
                         )
                       ],
                     )),

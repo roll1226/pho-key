@@ -95,9 +95,11 @@ class Screen extends HookConsumerWidget {
       appBar: AppBar(
         title: const Text('pho-key'),
       ),
-      body: const Padding(
+      body: Padding(
         padding: EdgeInsets.all(10),
-        child: KeyholeList(),
+        child: KeyholeList(
+          camera: camera,
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
@@ -112,7 +114,8 @@ class Screen extends HookConsumerWidget {
 }
 
 class KeyholeList extends HookConsumerWidget {
-  const KeyholeList({Key? key}) : super(key: key);
+  const KeyholeList({Key? key, required this.camera}) : super(key: key);
+  final CameraDescription camera;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -136,6 +139,7 @@ class KeyholeList extends HookConsumerWidget {
                                     keyholeId: keyhole.id,
                                     imagePath: keyhole.imagePath,
                                     body: keyhole.body,
+                                    camera: camera,
                                   )))
                     },
                   );

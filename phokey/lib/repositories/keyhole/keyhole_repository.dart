@@ -1,10 +1,8 @@
 import 'dart:convert';
-import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:phokey/general_providers.dart';
-import 'package:phokey/models/keyhole/api_create_keyhole_model.dart';
 import 'package:phokey/models/keyhole/keyhole_model.dart';
 import 'package:phokey/extensions/firebase_firesotre_extension.dart';
 import 'package:phokey/repositories/custom_exception.dart';
@@ -18,6 +16,11 @@ abstract class BaseKeyholeRepository {
   Future<Keyhole> createKeyhole(
       {required String imagePath,
       required String body,
+      required String latitude,
+      required String longitude});
+  Future<bool> unlockingKeyhole(
+      {required String keyholeId,
+      required String keyPath,
       required String latitude,
       required String longitude});
 }
@@ -58,7 +61,8 @@ class KeyholeRepository implements BaseKeyholeRepository {
       required String latitude,
       required String longitude}) async {
     try {
-      final url = Uri.parse('http://192.168.0.12:8080/');
+      final url = Uri.parse(
+          'https://asia-northeast1-pho-key.cloudfunctions.net/api-create-keyhole');
       Map<String, String> headers = {'content-type': 'application/json'};
       final String postBody = json.encode({
         'image_path': imagePath,
@@ -73,6 +77,42 @@ class KeyholeRepository implements BaseKeyholeRepository {
           .keyholeDocRef(response.body)
           .get();
       return Keyhole.fromDocument(doc);
+    } catch (e) {
+      throw CustomException(message: e.toString());
+    }
+  }
+
+  @override
+  Future<bool> unlockingKeyhole(
+      {required String keyholeId,
+      required String keyPath,
+      required String latitude,
+      required String longitude}) async {
+    try {
+      final challengeUrl = Uri.parse(
+          'https://asia-northeast1-pho-key.cloudfunctions.net/api-create-challenge');
+      Map<String, String> headers = {'content-type': 'application/json'};
+      final String challengePostBody = json.encode({
+        'keyhole_id': keyholeId,
+      });
+
+      final challengeResponse = await http.post(challengeUrl,
+          headers: headers, body: challengePostBody);
+
+      final compareImageUrl = Uri.parse(
+          'https://asia-northeast1-pho-key.cloudfunctions.net/api-compare-image');
+      final String compareImagePostBody = json.encode({
+        'challenge_id': challengeResponse.body,
+        'key_path': keyPath,
+        'latitude': latitude,
+        'longitude': longitude
+      });
+
+      final compareImageResponse = await http.post(compareImageUrl,
+          headers: headers, body: compareImagePostBody);
+      debugPrint(compareImageResponse.body);
+
+      return compareImageResponse.body == '1' ? true : false;
     } catch (e) {
       throw CustomException(message: e.toString());
     }

@@ -49,24 +49,4 @@ class KeyholeController extends StateNotifier<AsyncValue<List<Keyhole>>> {
       _read(keyholeExceptionProvider);
     }
   }
-
-  Future<bool> compareImage(
-      {required String keyholeId,
-      required String keyPath,
-      required String latitude,
-      required String longitude}) async {
-    try {
-      final isCompareImage = await _read(keyholeRepositoryProvider)
-          .unlockingKeyhole(
-              keyholeId: keyholeId,
-              keyPath: keyPath,
-              latitude: latitude,
-              longitude: longitude);
-      return isCompareImage;
-    } on CustomException {
-      // I can't imitate origin code.
-      _read(keyholeExceptionProvider);
-      return false;
-    }
-  }
 }

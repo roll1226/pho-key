@@ -5,4 +5,6 @@ extension FirebaseFirestoreX on FirebaseFirestore {
       collection('keyholes');
   DocumentReference<Map<String, dynamic>> keyholeDocRef(String keyholeId) =>
       collection('keyholes').doc(keyholeId);
+  DocumentReference<Map<String, dynamic>> challengeDocRef(String keyholeId) =>
+      collection('challenge').doc(keyholeId);
 }

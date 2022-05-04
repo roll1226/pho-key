@@ -23,3 +23,4 @@ RUN pip install google-cloud-storage
 RUN pip install flask
 RUN pip install functions-framework
 RUN pip install requests
+RUN pip install pipreqs
