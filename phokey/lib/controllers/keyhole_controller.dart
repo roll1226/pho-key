@@ -31,10 +31,16 @@ class KeyholeController extends StateNotifier<AsyncValue<List<Keyhole>>> {
   }
 
   Future<void> addKeyhole(
-      {required String imagePath, required String body}) async {
+      {required String imagePath,
+      required String body,
+      required String latitude,
+      required String longitude}) async {
     try {
-      final keyhole = await _read(keyholeRepositoryProvider)
-          .createKeyhole(imagePath: imagePath, body: body);
+      final keyhole = await _read(keyholeRepositoryProvider).createKeyhole(
+          imagePath: imagePath,
+          body: body,
+          latitude: latitude,
+          longitude: longitude);
 
       state.whenData((keyholes) => state =
           AsyncValue.data(keyholes..add(keyhole.copyWith(id: keyhole.id))));

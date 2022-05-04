@@ -15,12 +15,16 @@ abstract class Keyhole implements _$Keyhole {
       required String body,
       required String imagePath,
       @Default(false) bool delFlag,
+      required String latitude,
+      required String longitude,
       @TimestampConverter() required DateTime createdAt,
       @TimestampConverter() required DateTime updatedAt}) = _Keyhole;
 
   factory Keyhole.empty() => Keyhole(
       body: '',
       imagePath: '',
+      latitude: '',
+      longitude: '',
       createdAt: DateTime.now(),
       updatedAt: DateTime.now());
 

@@ -11,6 +11,8 @@ _$_Keyhole _$$_KeyholeFromJson(Map<String, dynamic> json) => _$_Keyhole(
       body: json['body'] as String,
       imagePath: json['imagePath'] as String,
       delFlag: json['delFlag'] as bool? ?? false,
+      latitude: json['latitude'] as String,
+      longitude: json['longitude'] as String,
       createdAt:
           const TimestampConverter().fromJson(json['createdAt'] as Timestamp),
       updatedAt:
@@ -23,6 +25,8 @@ Map<String, dynamic> _$$_KeyholeToJson(_$_Keyhole instance) =>
       'body': instance.body,
       'imagePath': instance.imagePath,
       'delFlag': instance.delFlag,
+      'latitude': instance.latitude,
+      'longitude': instance.longitude,
       'createdAt': const TimestampConverter().toJson(instance.createdAt),
       'updatedAt': const TimestampConverter().toJson(instance.updatedAt),
     };

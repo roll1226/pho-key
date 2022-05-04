@@ -92,6 +92,16 @@ def create_keyhole(request):
   else:
       return ''
 
+  if request_json and 'latitude' in request_json:
+      latitude = str(request_json['latitude'])
+  else:
+      return ''
+
+  if request_json and 'longitude' in request_json:
+      longitude = str(request_json['longitude'])
+  else:
+      return ''
+
   # if request_json and 'creator_id' in request_json:
   #     creator_id = str(request_json['creator_id'])
   # else:
@@ -106,6 +116,8 @@ def create_keyhole(request):
       'body': body,
       'imagePath': image_path,
       'delFlag': False,
+      'latitude': latitude,
+      'longitude': longitude,
       'createdAt': now,
       'updatedAt': now,
     })

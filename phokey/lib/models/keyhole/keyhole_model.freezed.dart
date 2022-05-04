@@ -24,6 +24,8 @@ mixin _$Keyhole {
   String get body => throw _privateConstructorUsedError;
   String get imagePath => throw _privateConstructorUsedError;
   bool get delFlag => throw _privateConstructorUsedError;
+  String get latitude => throw _privateConstructorUsedError;
+  String get longitude => throw _privateConstructorUsedError;
   @TimestampConverter()
   DateTime get createdAt => throw _privateConstructorUsedError;
   @TimestampConverter()
@@ -43,6 +45,8 @@ abstract class $KeyholeCopyWith<$Res> {
       String body,
       String imagePath,
       bool delFlag,
+      String latitude,
+      String longitude,
       @TimestampConverter() DateTime createdAt,
       @TimestampConverter() DateTime updatedAt});
 }
@@ -61,6 +65,8 @@ class _$KeyholeCopyWithImpl<$Res> implements $KeyholeCopyWith<$Res> {
     Object? body = freezed,
     Object? imagePath = freezed,
     Object? delFlag = freezed,
+    Object? latitude = freezed,
+    Object? longitude = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
   }) {
@@ -81,6 +87,14 @@ class _$KeyholeCopyWithImpl<$Res> implements $KeyholeCopyWith<$Res> {
           ? _value.delFlag
           : delFlag // ignore: cast_nullable_to_non_nullable
               as bool,
+      latitude: latitude == freezed
+          ? _value.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
+              as String,
+      longitude: longitude == freezed
+          ? _value.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
+              as String,
       createdAt: createdAt == freezed
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -103,6 +117,8 @@ abstract class _$KeyholeCopyWith<$Res> implements $KeyholeCopyWith<$Res> {
       String body,
       String imagePath,
       bool delFlag,
+      String latitude,
+      String longitude,
       @TimestampConverter() DateTime createdAt,
       @TimestampConverter() DateTime updatedAt});
 }
@@ -122,6 +138,8 @@ class __$KeyholeCopyWithImpl<$Res> extends _$KeyholeCopyWithImpl<$Res>
     Object? body = freezed,
     Object? imagePath = freezed,
     Object? delFlag = freezed,
+    Object? latitude = freezed,
+    Object? longitude = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
   }) {
@@ -142,6 +160,14 @@ class __$KeyholeCopyWithImpl<$Res> extends _$KeyholeCopyWithImpl<$Res>
           ? _value.delFlag
           : delFlag // ignore: cast_nullable_to_non_nullable
               as bool,
+      latitude: latitude == freezed
+          ? _value.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
+              as String,
+      longitude: longitude == freezed
+          ? _value.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
+              as String,
       createdAt: createdAt == freezed
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -162,6 +188,8 @@ class _$_Keyhole extends _Keyhole with DiagnosticableTreeMixin {
       required this.body,
       required this.imagePath,
       this.delFlag = false,
+      required this.latitude,
+      required this.longitude,
       @TimestampConverter() required this.createdAt,
       @TimestampConverter() required this.updatedAt})
       : super._();
@@ -179,6 +207,10 @@ class _$_Keyhole extends _Keyhole with DiagnosticableTreeMixin {
   @JsonKey()
   final bool delFlag;
   @override
+  final String latitude;
+  @override
+  final String longitude;
+  @override
   @TimestampConverter()
   final DateTime createdAt;
   @override
@@ -187,7 +219,7 @@ class _$_Keyhole extends _Keyhole with DiagnosticableTreeMixin {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Keyhole(id: $id, body: $body, imagePath: $imagePath, delFlag: $delFlag, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'Keyhole(id: $id, body: $body, imagePath: $imagePath, delFlag: $delFlag, latitude: $latitude, longitude: $longitude, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -199,6 +231,8 @@ class _$_Keyhole extends _Keyhole with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('body', body))
       ..add(DiagnosticsProperty('imagePath', imagePath))
       ..add(DiagnosticsProperty('delFlag', delFlag))
+      ..add(DiagnosticsProperty('latitude', latitude))
+      ..add(DiagnosticsProperty('longitude', longitude))
       ..add(DiagnosticsProperty('createdAt', createdAt))
       ..add(DiagnosticsProperty('updatedAt', updatedAt));
   }
@@ -212,6 +246,8 @@ class _$_Keyhole extends _Keyhole with DiagnosticableTreeMixin {
             const DeepCollectionEquality().equals(other.body, body) &&
             const DeepCollectionEquality().equals(other.imagePath, imagePath) &&
             const DeepCollectionEquality().equals(other.delFlag, delFlag) &&
+            const DeepCollectionEquality().equals(other.latitude, latitude) &&
+            const DeepCollectionEquality().equals(other.longitude, longitude) &&
             const DeepCollectionEquality().equals(other.createdAt, createdAt) &&
             const DeepCollectionEquality().equals(other.updatedAt, updatedAt));
   }
@@ -224,6 +260,8 @@ class _$_Keyhole extends _Keyhole with DiagnosticableTreeMixin {
       const DeepCollectionEquality().hash(body),
       const DeepCollectionEquality().hash(imagePath),
       const DeepCollectionEquality().hash(delFlag),
+      const DeepCollectionEquality().hash(latitude),
+      const DeepCollectionEquality().hash(longitude),
       const DeepCollectionEquality().hash(createdAt),
       const DeepCollectionEquality().hash(updatedAt));
 
@@ -244,6 +282,8 @@ abstract class _Keyhole extends Keyhole {
       required final String body,
       required final String imagePath,
       final bool delFlag,
+      required final String latitude,
+      required final String longitude,
       @TimestampConverter() required final DateTime createdAt,
       @TimestampConverter() required final DateTime updatedAt}) = _$_Keyhole;
   const _Keyhole._() : super._();
@@ -258,6 +298,10 @@ abstract class _Keyhole extends Keyhole {
   String get imagePath => throw _privateConstructorUsedError;
   @override
   bool get delFlag => throw _privateConstructorUsedError;
+  @override
+  String get latitude => throw _privateConstructorUsedError;
+  @override
+  String get longitude => throw _privateConstructorUsedError;
   @override
   @TimestampConverter()
   DateTime get createdAt => throw _privateConstructorUsedError;

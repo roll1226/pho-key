@@ -16,7 +16,10 @@ abstract class BaseKeyholeRepository {
   // keyholeを返す
   Future<Keyhole> retrieveKeyhole({required String keyholeId});
   Future<Keyhole> createKeyhole(
-      {required String imagePath, required String body});
+      {required String imagePath,
+      required String body,
+      required String latitude,
+      required String longitude});
 }
 
 final keyholeRepositoryProvider =
@@ -50,12 +53,19 @@ class KeyholeRepository implements BaseKeyholeRepository {
 
   @override
   Future<Keyhole> createKeyhole(
-      {required String imagePath, required String body}) async {
+      {required String imagePath,
+      required String body,
+      required String latitude,
+      required String longitude}) async {
     try {
       final url = Uri.parse('http://192.168.0.12:8080/');
       Map<String, String> headers = {'content-type': 'application/json'};
-      final String postBody =
-          json.encode({'image_path': imagePath, 'body': body});
+      final String postBody = json.encode({
+        'image_path': imagePath,
+        'body': body,
+        'latitude': latitude,
+        'longitude': longitude
+      });
 
       final response = await http.post(url, headers: headers, body: postBody);
 

@@ -5,24 +5,36 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:phokey/common/generate_nonce.dart';
 import 'package:phokey/controllers/keyhole_controller.dart';
 import 'package:phokey/models/keyhole/keyhole_model.dart';
 import 'package:phokey/view/widgets/create_dialog_button.dart';
 
 class AddKeyholeDialog extends HookConsumerWidget {
-  static void show(
-      BuildContext context, Keyhole keyhole, CameraDescription camera) {
+  static void show(BuildContext context, Keyhole keyhole,
+      CameraDescription camera, String latitude, String longitude) {
     showDialog(
       context: context,
-      builder: (context) => AddKeyholeDialog(keyhole: keyhole, camera: camera),
+      builder: (context) => AddKeyholeDialog(
+        keyhole: keyhole,
+        camera: camera,
+        latitude: latitude,
+        longitude: longitude,
+      ),
     );
   }
 
   final Keyhole keyhole;
   final CameraDescription camera;
+  final String latitude;
+  final String longitude;
 
   const AddKeyholeDialog(
-      {Key? key, required this.keyhole, required this.camera})
+      {Key? key,
+      required this.keyhole,
+      required this.camera,
+      required this.latitude,
+      required this.longitude})
       : super(key: key);
 
   bool get isUpdating => keyhole.id != null;
@@ -67,7 +79,9 @@ class AddKeyholeDialog extends HookConsumerWidget {
                                     .read(keyholeControllerProvider.notifier)
                                     .addKeyhole(
                                         body: textController.text.trim(),
-                                        imagePath: _imagePath.value);
+                                        imagePath: _imagePath.value,
+                                        latitude: latitude,
+                                        longitude: longitude);
                                 Navigator.of(context).pop();
                               }),
                     CreateDialogButton(
@@ -194,8 +208,8 @@ class DisplayPictureScreen extends StatelessWidget {
                 label: 'この写真にする',
                 onPressed: () async {
                   final storageRef = FirebaseStorage.instance.ref();
-                  final mountainsRef =
-                      storageRef.child("keyholeImage/mountains.jpg");
+                  final mountainsRef = storageRef
+                      .child("keyholeImage/" + generateNonce() + ".jpg");
                   await mountainsRef.putFile(File(imagePath));
                   debugPrint(await mountainsRef.getDownloadURL());
 
